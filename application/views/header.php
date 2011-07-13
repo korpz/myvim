@@ -11,7 +11,6 @@
 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $url; ?>css/jquery.snippet.css"></script>
  <script type="text/javascript">
  $(document).ready(function(){
-
 $("pre").snippet("javascript",{style:"easter",transparent:false,showNum:false});
 });
 
