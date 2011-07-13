@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="tagcloud.css">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>jQuery Tag Cloud</title>
+	</head>
+	<body>
+		<div id="tagCloud">
+			<h2>Tag Cloud</h2>
+		</div>
+		<script type="text/javascript" src="jquery-1.3.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				
+				//get tag feed
+				$.getJSON("http://localhost/jquery/tagcloud.php?callback=?", function(data) {
+				
+					//create list for tag links
+					$("<ul>").attr("id", "tagList").appendTo("#tagCloud");
+					
+					//create tags
+					$.each(data.tags, function(i, val) {
+						
+						//create item
+						var li = $("<li>");
+						
+						//create link
+						$("<a>").text(val.tag).attr({title:"See all pages tagged with " + val.tag, href:"http://localhost/tags/" + val.tag + ".html"}).appendTo(li);
+						
+						//set tag size
+						li.children().css("fontSize", (val.freq / 10 < 1) ? val.freq / 10 + 1 + "em": (val.freq / 10 > 2) ? "2em" : val.freq / 10 + "em");
+						
+						//add to list
+						li.appendTo("#tagList");
+						
+					});
+				});
+			});
+		</script>
+	</body>
+</html>
